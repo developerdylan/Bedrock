@@ -1,4 +1,4 @@
-package me.ohvalsgod.bedrock.profiling.callback;
+package me.ohvalsgod.bedrock.player.profiling.callback;
 
 
 /**

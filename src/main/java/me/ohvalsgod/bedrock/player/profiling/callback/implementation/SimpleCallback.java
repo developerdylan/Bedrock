@@ -1,6 +1,6 @@
-package me.ohvalsgod.bedrock.profiling.callback.implementation;
+package me.ohvalsgod.bedrock.player.profiling.callback.implementation;
 
-import me.ohvalsgod.bedrock.profiling.callback.Callback;
+import me.ohvalsgod.bedrock.player.profiling.callback.Callback;
 
 /**
  * A more simpler approach to the {@link Callback} class, that only takes in a value, with a result of {@link CommonResultType}

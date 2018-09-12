@@ -8,7 +8,7 @@
     <artifactId>me.ohvalsgod.bedrock</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Bedrock</name>
-    <description>Basics needed for a minecraft server.</description>
+    <description>A plugin with all the necessities for a minecraft server.</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

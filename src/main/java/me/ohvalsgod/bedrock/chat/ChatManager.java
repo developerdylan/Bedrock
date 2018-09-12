@@ -27,7 +27,7 @@ public class ChatManager {
         urlRegex = Pattern.compile("^(http://www\\.|https://www\\.|http://|https://)?[a-z0-9]+([\\-.][a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$");
         ipRegex = Pattern.compile("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])([.,])){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$");
 
-        final ConfigCursor cursor = new ConfigCursor(Bedrock.getInstance().getMainConfig(), "chat");
+        final ConfigCursor cursor = new ConfigCursor(bedrock.getMainConfig(), "chat");
         linkWhitelist = cursor.getStringList("link-whitelist");
         filteredPhrases = cursor.getStringList("phrase-filter");
         filteredWords = cursor.getStringList("word-filter");

@@ -1,6 +1,6 @@
 package me.ohvalsgod.bedrock.command;
 
-import me.ohvalsgod.nucleus.command.param.ParameterData;
+import me.ohvalsgod.bedrock.command.param.ParameterData;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.SimpleCommandMap;

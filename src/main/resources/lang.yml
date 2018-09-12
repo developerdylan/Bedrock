@@ -1,3 +1,9 @@
-permissions:
-  rank:
-    reset: "&6Your rank has been &4deleted &6and you have been set to the '&f{RANK}&6' rank."
+PERMISSIONS:
+  RANK:
+    RESET: "&6Your rank has been &4deleted &6and you have been set to the '&f{RANK}&6' rank."
+
+PROFILE:
+  ERROR:
+    SAVED: "&7[Debug] &aProfile successfully saved..."
+    LOADED: "&7[Debug] &aProfile successfully loaded..."
+    COULD_NOT_LOAD: "&7[Debug] &4Error: &cProfile could not be loaded...maybe the databases are down?"

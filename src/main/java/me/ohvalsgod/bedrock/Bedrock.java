@@ -11,8 +11,10 @@ import me.ohvalsgod.bedrock.jedis.JedisSettings;
 import me.ohvalsgod.bedrock.listener.ListenerHandler;
 import me.ohvalsgod.bedrock.mongo.BedrockMongo;
 import me.ohvalsgod.bedrock.permissions.rank.BRankManager;
+import me.ohvalsgod.bedrock.player.BPlayer;
 import me.ohvalsgod.bedrock.player.BPlayerManager;
-import me.ohvalsgod.bedrock.profiling.provider.implementation.BPlayerProvider;
+import me.ohvalsgod.bedrock.player.profiling.provider.AbstractProfileProvider;
+import me.ohvalsgod.bedrock.player.profiling.provider.implementation.ProfileProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -29,7 +31,9 @@ public class Bedrock extends JavaPlugin {
     //  Database
     private BedrockJedis jedis;
     private BedrockMongo mongo;
-    private BPlayerProvider playerProvider;
+    private AbstractProfileProvider<BPlayer> profileProvider;   //  For future projects, will compile this and use a default profile object,
+                                                                //  new projects can just extend that object, and since we'll be using generics
+                                                                //  it will be much easier.
 
     //  Handlers and such
     private Language language;
@@ -63,7 +67,14 @@ public class Bedrock extends JavaPlugin {
 
         mongo = new BedrockMongo();
 
-        playerProvider = new BPlayerProvider(instance);
+        if (mongo.connect()) {
+            getLogger().info("Successfully connected to MongoDB in database '" + mongo.getDatabase().getName() + "'.");
+        } else {
+            getLogger().severe("[ERROR] Could not connect to MongoDB... this will cause the plugin to break!");
+        }
+
+        profileProvider = new ProfileProvider(instance);
+        profileProvider.setMongo(mongo);
     }
 
     private void initFiles() {
@@ -78,6 +89,7 @@ public class Bedrock extends JavaPlugin {
         playerManager = new BPlayerManager(instance);
         rankManager = new BRankManager(instance);
         chatManager = new ChatManager(instance);
+
         CommandHandler.loadCommandsFromPackage(instance, "me.ohvalsgod.bedrock.command.commands");
 
         language.init();

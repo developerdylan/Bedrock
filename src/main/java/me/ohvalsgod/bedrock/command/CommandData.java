@@ -1,7 +1,7 @@
 package me.ohvalsgod.bedrock.command;
 
 import lombok.Getter;
-import me.ohvalsgod.nucleus.command.param.ParameterData;
+import me.ohvalsgod.bedrock.command.param.ParameterData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -15,7 +15,7 @@ final class CommandData {
     @Getter private String[] names;
     @Getter private String permissionNode;
     @Getter private boolean async;
-    @Getter private List<ParameterData> parameters = new ArrayList<>();
+    @Getter private List<ParameterData> parameters;
     @Getter private Method method;
     @Getter private boolean consoleAllowed;
 

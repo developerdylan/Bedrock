@@ -2,8 +2,7 @@ package me.ohvalsgod.bedrock.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import me.ohvalsgod.nucleus.Nucleus;
-import me.ohvalsgod.nucleus.reflection.BukkitReflection;
+import me.ohvalsgod.bedrock.Bedrock;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Material;
@@ -134,7 +133,7 @@ public class ItemUtil {
 
     private static List<String> readLines() {
         try {
-            return IOUtils.readLines(Nucleus.class.getClassLoader().getResourceAsStream("items.csv"));
+            return IOUtils.readLines(Bedrock.class.getClassLoader().getResourceAsStream("items.csv"));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -10,21 +10,20 @@ import java.util.UUID;
 @Getter
 public class PlayerInfo {
 
-    private UUID uuid;
-    @Setter
-    private String name;
+    private UUID uniqueId;
+    @Setter private String name;
 
     public PlayerInfo(Player player) {
-        this.uuid = player.getUniqueId();
+        this.uniqueId = player.getUniqueId();
         this.name = player.getName();
     }
 
-    public PlayerInfo(UUID uuid, String name) {
-        this.uuid = uuid;
-        this.name = name;
+    public PlayerInfo(UUID uuid) {
+        this.uniqueId = uuid;
     }
 
-    public PlayerInfo(String name) {
+    public PlayerInfo(UUID uuid, String name) {
+        this.uniqueId = uuid;
         this.name = name;
     }
 
@@ -34,7 +33,7 @@ public class PlayerInfo {
      * @return the player object
      */
     public Player toPlayer() {
-        return Bukkit.getPlayer(this.getUuid());
+        return Bukkit.getPlayer(this.getUniqueId());
     }
 
     /**

@@ -3,15 +3,12 @@ package me.ohvalsgod.bedrock.command;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 import lombok.Getter;
-import me.ohvalsgod.nucleus.Nucleus;
-import me.ohvalsgod.nucleus.command.param.Parameter;
-import me.ohvalsgod.nucleus.command.param.ParameterData;
+import me.ohvalsgod.bedrock.command.param.Parameter;
+import me.ohvalsgod.bedrock.command.param.ParameterData;
 import me.ohvalsgod.bedrock.command.param.ParameterType;
-import me.ohvalsgod.nucleus.command.param.defaults.*;
-import me.ohvalsgod.nucleus.player.PlayerInfo;
-import me.ohvalsgod.nucleus.rank.Rank;
-import me.ohvalsgod.nucleus.server.ServerType;
-import me.ohvalsgod.nucleus.util.ClassUtil;
+import me.ohvalsgod.bedrock.command.param.defaults.*;
+import me.ohvalsgod.bedrock.player.PlayerInfo;
+import me.ohvalsgod.bedrock.util.ClassUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -26,6 +23,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.annotation.Annotation;
@@ -39,6 +37,11 @@ public final class CommandHandler implements Listener {
     @Getter private static List<CommandData> commands = new ArrayList<>();
     private static Map<Class<?>, ParameterType> parameterTypes = new HashMap<>();
     private static boolean initiated = false;
+    private static JavaPlugin plugin;
+
+    public CommandHandler(JavaPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     // Static class -- cannot be created.
     private CommandHandler() {
@@ -54,7 +57,7 @@ public final class CommandHandler implements Listener {
         Preconditions.checkState(!initiated);
         initiated = true;
 
-        Nucleus.getInstance().getServer().getPluginManager().registerEvents(new CommandHandler(), Nucleus.getInstance());
+        plugin.getServer().getPluginManager().registerEvents(new CommandHandler(), plugin);
 
         // Run this on a delay so everything is registered.
         // Not really needed, but it's nice to play it safe.
@@ -62,11 +65,11 @@ public final class CommandHandler implements Listener {
             public void run() {
                 try {
                     // Command map field (we have to use reflection to get this)
-                    Field commandMapField = Nucleus.getInstance().getServer().getClass().getDeclaredField("commandMap");
+                    Field commandMapField = plugin.getServer().getClass().getDeclaredField("commandMap");
                     commandMapField.setAccessible(true);
 
-                    Object oldCommandMap = commandMapField.get(Nucleus.getInstance().getServer());
-                    CommandMap newCommandMap = new CommandMap(Nucleus.getInstance().getServer());
+                    Object oldCommandMap = commandMapField.get(plugin.getServer());
+                    CommandMap newCommandMap = new CommandMap(plugin.getServer());
 
                     // Start copying the knownCommands field over
                     // (so any commands registered before we hook in are kept)
@@ -82,14 +85,14 @@ public final class CommandHandler implements Listener {
                     knownCommandsField.set(newCommandMap, knownCommandsField.get(oldCommandMap));
                     // End copying the knownCommands field over
 
-                    commandMapField.set(Nucleus.getInstance().getServer(), newCommandMap);
+                    commandMapField.set(plugin.getServer(), newCommandMap);
                 } catch (Exception e) {
                     // Shouldn't happen, so we can just
                     // printout the exception (and do nothing else)
                     e.printStackTrace();
                 }
             }
-        }.runTaskLater(Nucleus.getInstance(), 5L);
+        }.runTaskLater(plugin, 5L);
 
         // Register our default parameter types.
         // boolean.class is the same as Boolean.TYPE,
@@ -103,8 +106,6 @@ public final class CommandHandler implements Listener {
         registerParameterType(Player.class, new PlayerParameterType());
         registerParameterType(World.class, new WorldParameterType());
         registerParameterType(ItemStack.class, new ItemStackParameterType());
-        registerParameterType(Rank.class, new RankParameterType());
-        registerParameterType(ServerType.class, new ServerTypeParameterType());
         registerParameterType(PlayerInfo.class, new PlayerInfoParameterType());
         registerParameterType(GameMode.class, new GameModeParameterType());
     }
@@ -168,12 +169,12 @@ public final class CommandHandler implements Listener {
             if (parameterAnnotation != null) {
                 parameterData.add(new ParameterData(parameterAnnotation, method.getParameterTypes()[parameterIndex]));
             } else {
-                Nucleus.getInstance().getLogger().warning("Method '" + method.getName() + "' has a parameter without a @Parameter annotation.");
+                plugin.getLogger().warning("Method '" + method.getName() + "' has a parameter without a @Parameter annotation.");
                 return;
             }
         }
 
-        commands.add(new CommandData(commandAnnotation, parameterData, method, method.getParameterTypes()[0].getClass().equals(Player.class)));
+        commands.add(new CommandData(commandAnnotation, parameterData, method, method.getParameterTypes()[0].getClass().getSimpleName().equals("Player")));
 
         Collections.sort(commands, (o1, o2) -> (o2.getName().length() - o1.getName().length()));
     }
@@ -265,7 +266,7 @@ public final class CommandHandler implements Listener {
                 public void run() {
                     foundClone.execute(sender, argsClone);
                 }
-            }.runTaskAsynchronously(Nucleus.getInstance());
+            }.runTaskAsynchronously(plugin);
         } else {
             found.execute(sender, args);
         }

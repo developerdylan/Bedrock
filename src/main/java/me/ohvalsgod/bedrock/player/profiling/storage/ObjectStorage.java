@@ -1,12 +1,12 @@
-package me.ohvalsgod.bedrock.profiling.storage;
+package me.ohvalsgod.bedrock.player.profiling.storage;
 
-import me.ohvalsgod.bedrock.profiling.callback.Callback;
+import me.ohvalsgod.bedrock.player.profiling.callback.Callback;
 
 /**
  * This class will be used to store and load objects of any kind
  * @param <K> The key. Sample, {@link java.util.UUID}
  * @param <V> The value. Sample, {@link me.ohvalsgod.bedrock.player.BPlayer}
- * @param <R> The result. Sample, {@link me.ohvalsgod.bedrock.profiling.callback.implementation.CommonResultType}
+ * @param <R> The result. Sample, {@link me.ohvalsgod.bedrock.player.profiling.callback.implementation.CommonResultType}
  */
 public interface ObjectStorage<K, V, R extends Enum<R>> {
 

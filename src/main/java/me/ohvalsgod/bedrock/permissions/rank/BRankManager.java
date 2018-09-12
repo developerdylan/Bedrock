@@ -36,14 +36,14 @@ public class BRankManager {
      */
     public void delete(BRank rank, boolean update) {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            BPlayer bplayer = Bedrock.getInstance().getPlayerManager().getByPlayer(player);
+            BPlayer profile = Bedrock.getInstance().getPlayerManager().getByPlayer(player);
 
-            bplayer.getGrantBySource(rank.getName()).setActive(false);
-            bplayer.save();
-            bplayer.recalculate();
+            profile.getGrantBySource(rank.getName()).setActive(false);
+            bedrock.getProfileProvider().save(profile);
+            profile.recalculate();
 
-            if (bplayer.getActiveRank().equals(rank) || (bplayer.getGlobalRank() != null && bplayer.getGlobalRank().equals(rank))) {
-                player.sendMessage(Language.getInstance().rankFormat(Language.getInstance().getCursor().getString("permissions.rank.reset"), bplayer.getActiveRank()));
+            if (profile.getActiveRank().equals(rank)) {
+                player.sendMessage(Language.getInstance().rankFormat(Language.getInstance().getString("RANK_RESET"), profile.getActiveRank()));
             }
         }
     }
