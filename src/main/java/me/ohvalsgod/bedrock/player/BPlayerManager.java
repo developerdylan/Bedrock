@@ -23,31 +23,31 @@ public class BPlayerManager {
     /**
      * Cache a BPlayer in memory
      *
-     * @param bPlayer bplayer to be cached
+     * @param bplayer bplayer to be cached
      */
-    public void cache(BPlayer bPlayer) {
-        cachedPlayers.put(bPlayer.getUuid(), bPlayer);
+    public void cache(BPlayer bplayer) {
+        cachedPlayers.put(bplayer.getUniqueId(), bplayer);
     }
 
     /**
      * Find alternate accounts through cached BPlayer objects
      *
-     * @param bPlayer main account
+     * @param bplayer main account
      * @return alt accounts
      */
-    public List<UUID> findAlts(BPlayer bPlayer) {
+    public List<UUID> findAlts(BPlayer bplayer) {
         if (!Bedrock.mainThread(getClass())) {
             return null;
         }
 
         List<UUID> alts = new ArrayList<>();
-        if (bPlayer.getCurrentAddress() != null) {
-            try (MongoCursor<Document> cursor = BedrockMongo.getInstance().getPlayers().find(MongoUtil.find("currentAddress", bPlayer.getCurrentAddress())).iterator()) {
+        if (bplayer.getCurrentAddress() != null) {
+            try (MongoCursor<Document> cursor = BedrockMongo.getInstance().getPlayers().find(MongoUtil.find("currentAddress", bplayer.getCurrentAddress())).iterator()) {
                 cursor.forEachRemaining(document -> {
                     UUID uuid = UUID.fromString(document.getString("uuid"));
 
-                    if (!uuid.equals(bPlayer.getUuid())) {
-                        if (!bPlayer.getAlts().contains(uuid)) {
+                    if (!uuid.equals(bplayer.getUniqueId())) {
+                        if (!bplayer.getAlternateAccounts().contains(uuid)) {
                             alts.add(uuid);
                         }
                     }
