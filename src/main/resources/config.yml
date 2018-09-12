@@ -1,0 +1,15 @@
+server:
+  id: "Restricted-Hub"
+  type: "HUB"
+  motd: "&c&lMineHQ &cNetwork\n&eRestricted-Hub &7(Staff only)"
+chat:
+  word-filter:
+    - "nigger"
+    - "retard"
+    - "kys"
+  phrase-filter:
+    - "bedrcok plugin suck"
+  link-whitelist:
+    - "twitch.tv"
+    - "youtube.com"
+    - "amazon.com"

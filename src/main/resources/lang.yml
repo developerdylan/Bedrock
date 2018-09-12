@@ -1,0 +1,3 @@
+permissions:
+  rank:
+    reset: "&6Your rank has been &4deleted &6and you have been set to the '&f{RANK}&6' rank."
