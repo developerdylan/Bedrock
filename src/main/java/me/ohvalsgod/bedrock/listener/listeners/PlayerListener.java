@@ -20,7 +20,6 @@ public class PlayerListener {
         if ((System.currentTimeMillis()/1000 - profile.getLastSave()/1000) < 60) {
             Bedrock.getInstance().getProfileProvider().save(profile);
         }
-
     }
 
 }

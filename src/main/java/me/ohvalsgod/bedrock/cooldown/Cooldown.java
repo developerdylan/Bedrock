@@ -1,7 +1,7 @@
 package me.ohvalsgod.bedrock.cooldown;
 
 import lombok.Data;
-import me.ohvalsgod.nucleus.util.TimeUtil;
+import me.ohvalsgod.bedrock.util.TimeUtil;
 
 @Data
 public class Cooldown {
