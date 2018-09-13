@@ -1,4 +1,4 @@
-package me.ohvalsgod.bedrock.util;
+package me.ohvalsgod.bedrock.util.bukkit;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Color;

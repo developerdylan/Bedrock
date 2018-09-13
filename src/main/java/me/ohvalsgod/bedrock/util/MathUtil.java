@@ -1,16 +1,17 @@
 package me.ohvalsgod.bedrock.util;
 
+import me.ohvalsgod.bedrock.util.bukkit.SimpleLocation;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class MathUtil {
 
-    public static CustomLocation getLocationInFrontOfPlayer(Player player, double distance) {
-        return new CustomLocation(player.getLocation().getX() + distance, player.getLocation().getY(), player.getLocation().getZ() + distance, player.getLocation().getYaw(), player.getLocation().getPitch());
+    public static SimpleLocation getLocationInFrontOfPlayer(Player player, double distance) {
+        return new SimpleLocation(player.getLocation().getWorld().getName(), player.getLocation().getX() + distance, player.getLocation().getY(), player.getLocation().getZ() + distance, player.getLocation().getYaw(), player.getLocation().getPitch());
     }
 
-    public static CustomLocation getLocationInFrontOfLocation(double x, double y, double z, float yaw, float pitch, double distance) {
-        return new CustomLocation(x + distance, y, z + distance, yaw, pitch);
+    public static SimpleLocation getLocationInFrontOfLocation(double x, double y, double z, float yaw, float pitch, double distance) {
+        return new SimpleLocation("world", x + distance, y, z + distance, yaw, pitch);
     }
 
     public static boolean isMouseOverEntity(Player player) {
@@ -18,12 +19,12 @@ public class MathUtil {
     }
 
     public static Entity rayTrace(Player player, double distance) {
-        CustomLocation playerLocation = CustomLocation.fromBukkitLocation(player.getLocation());
+        SimpleLocation playerLocation = new SimpleLocation(player.getLocation());
         Entity currentTarget = null;
         float lowestFov = Float.MAX_VALUE;
 
         for (Entity entity : player.getNearbyEntities(distance, distance, distance)) {
-            CustomLocation entityLocation = CustomLocation.fromBukkitLocation(entity.getLocation());
+            SimpleLocation entityLocation = new SimpleLocation(entity.getLocation());
             float fov = getRotationFromPosition(playerLocation, entityLocation)[0] - playerLocation.getYaw();
             double groundDistance = playerLocation.getGroundDistanceTo(entityLocation);
             if (lowestFov >= fov || (double) fov >= groundDistance + 2.0) continue;
@@ -34,7 +35,7 @@ public class MathUtil {
         return currentTarget;
     }
 
-    public static float[] getRotationFromPosition(CustomLocation playerLocation, CustomLocation targetLocation) {
+    public static float[] getRotationFromPosition(SimpleLocation playerLocation, SimpleLocation targetLocation) {
         double xDiff = targetLocation.getX() - playerLocation.getX();
         double zDiff = targetLocation.getZ() - playerLocation.getZ();
         double yDiff = targetLocation.getY() - (playerLocation.getY() + 0.4);

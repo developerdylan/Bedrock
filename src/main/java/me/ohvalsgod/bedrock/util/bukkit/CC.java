@@ -1,4 +1,4 @@
-package me.ohvalsgod.bedrock.util;
+package me.ohvalsgod.bedrock.util.bukkit;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.bukkit.ChatColor;

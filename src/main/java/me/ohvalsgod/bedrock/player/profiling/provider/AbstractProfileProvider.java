@@ -69,13 +69,13 @@ public abstract class AbstractProfileProvider<T extends BPlayer> {
                 profile = (T) new BPlayer(uniqueId);
             }
 
-            profiles.put(uniqueId, profile);
-
             if (result == ProfileCallbackResult.PROFILE_LOADED_SUCCESSFULLY) {
                 if (Bukkit.getPlayer(uniqueId) != null) {
                     Bukkit.getPlayer(uniqueId).sendMessage(Language.getInstance().getString("PROFILE_LOADED"));
                 }
             }
+
+            profiles.put(uniqueId, profile);
 
         });
     }
@@ -101,8 +101,9 @@ public abstract class AbstractProfileProvider<T extends BPlayer> {
 
         if(retrieveProfileImplementationInstance(uuid) == null) {
             profile = (T) new BPlayer(uuid);
-        } else
+        } else {
             profile = retrieveProfileImplementationInstance(uuid);
+        }
 
         if(deserializeProfileImplementation(map) == null) {
             profile = deserializeProfileImplementation(map);

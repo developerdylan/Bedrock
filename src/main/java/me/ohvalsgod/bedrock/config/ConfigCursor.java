@@ -3,7 +3,7 @@ package me.ohvalsgod.bedrock.config;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import me.ohvalsgod.bedrock.util.CC;
+import me.ohvalsgod.bedrock.util.bukkit.CC;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 

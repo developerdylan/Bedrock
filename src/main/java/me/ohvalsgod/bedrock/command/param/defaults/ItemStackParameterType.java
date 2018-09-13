@@ -2,7 +2,7 @@ package me.ohvalsgod.bedrock.command.param.defaults;
 
 import com.google.common.collect.ImmutableList;
 import me.ohvalsgod.bedrock.command.param.ParameterType;
-import me.ohvalsgod.bedrock.util.ItemUtil;
+import me.ohvalsgod.bedrock.util.bukkit.ItemUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -18,7 +18,7 @@ public class ItemStackParameterType implements ParameterType<ItemStack> {
         ItemStack item = ItemUtil.get(source);
 
         if (item == null) {
-            sender.sendMessage(ChatColor.RED + "No item with the name " + source + " found.");
+            sender.sendMessage(ChatColor.RED + "No item with the name '" + source + "' found.");
             return null;
         }
 
@@ -27,7 +27,7 @@ public class ItemStackParameterType implements ParameterType<ItemStack> {
 
     @Override
     public List<String> tabComplete(Player sender, Set<String> flags, String source) {
-        return ImmutableList.of(); // it would probably be too intensive to go through all the aliases
+        return ImmutableList.of();
     }
 
 }

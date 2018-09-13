@@ -47,8 +47,6 @@ public class Bedrock extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        ListenerHandler.loadListenersFromPackage(this, "me.ohvalsgod.bedrock.listener.listeners");
-
         initFiles();
         initDatabases();
         initHandlers();
@@ -91,6 +89,7 @@ public class Bedrock extends JavaPlugin {
         chatManager = new ChatManager(instance);
 
         CommandHandler.loadCommandsFromPackage(instance, "me.ohvalsgod.bedrock.command.commands");
+        ListenerHandler.loadListenersFromPackage(this, "me.ohvalsgod.bedrock.listener.listeners");
 
         language.init();
         rankManager.load();

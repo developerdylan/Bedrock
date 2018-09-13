@@ -1,6 +1,6 @@
 package me.ohvalsgod.bedrock.nametag;
 
-import me.ohvalsgod.bedrock.util.CC;
+import me.ohvalsgod.bedrock.util.bukkit.CC;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

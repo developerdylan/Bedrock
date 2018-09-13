@@ -1,4 +1,4 @@
-package me.ohvalsgod.bedrock.util;
+package me.ohvalsgod.bedrock.util.bukkit;
 
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;

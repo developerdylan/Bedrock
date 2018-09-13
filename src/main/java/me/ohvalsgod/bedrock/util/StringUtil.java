@@ -1,5 +1,6 @@
 package me.ohvalsgod.bedrock.util;
 
+import me.ohvalsgod.bedrock.util.bukkit.CC;
 import org.bukkit.ChatColor;
 
 import java.util.List;

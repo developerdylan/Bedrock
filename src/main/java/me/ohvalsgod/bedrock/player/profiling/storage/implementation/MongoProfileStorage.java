@@ -60,6 +60,9 @@ public class MongoProfileStorage<T extends BPlayer> implements ObjectStorage<UUI
 
         T profile = provider.deserializeDefaultProfile(data);
 
+        profile.setLoadedAt(System.currentTimeMillis());
+        profile.setLoaded(true);
+
         callback.accept(profile, ProfileCallbackResult.PROFILE_LOADED_SUCCESSFULLY);
 
         return profile;

@@ -1,9 +1,9 @@
 package me.ohvalsgod.bedrock.command.param.defaults;
 
-import me.ohvalsgod.nucleus.Nucleus;
 import me.ohvalsgod.bedrock.command.param.ParameterType;
-import me.ohvalsgod.nucleus.util.CC;
+import me.ohvalsgod.bedrock.util.bukkit.CC;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -31,9 +31,9 @@ public class UUIDParameterType implements ParameterType<UUID> {
     public List<String> tabComplete(Player sender, Set<String> flags, String source) {
         List<String> completions = new ArrayList<>();
 
-        for (Player player : Nucleus.getInstance().getServer().getOnlinePlayers()) {
+        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
             if (StringUtils.startsWithIgnoreCase(player.getName(), source)) {
-                completions.add(player.getName());
+                completions.add(player.getUniqueId().toString());
             }
         }
 

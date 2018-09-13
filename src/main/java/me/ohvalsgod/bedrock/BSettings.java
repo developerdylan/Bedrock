@@ -2,7 +2,7 @@ package me.ohvalsgod.bedrock;
 
 import lombok.Getter;
 import me.ohvalsgod.bedrock.config.ConfigCursor;
-import me.ohvalsgod.bedrock.util.CC;
+import me.ohvalsgod.bedrock.util.bukkit.CC;
 
 @Getter
 public class BSettings {

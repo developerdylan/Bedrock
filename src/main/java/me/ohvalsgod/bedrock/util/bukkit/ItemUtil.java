@@ -1,8 +1,9 @@
-package me.ohvalsgod.bedrock.util;
+package me.ohvalsgod.bedrock.util.bukkit;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import me.ohvalsgod.bedrock.Bedrock;
+import me.ohvalsgod.bedrock.util.NumberUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Material;
