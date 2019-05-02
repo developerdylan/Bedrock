@@ -2,6 +2,17 @@ server:
   id: "Restricted-Hub"
   type: "HUB"
   motd: "&c&lMineHQ &cNetwork\n&eRestricted-Hub &7(Staff only)"
+
+settings:
+  database:
+    type: "mongodb"
+    host: "127.0.0.1"
+    port: 1337
+    username: "root"
+    password: "password"
+    database: "bedrock"
+  economy: disabled
+
 chat:
   word-filter:
     - "nigger"
